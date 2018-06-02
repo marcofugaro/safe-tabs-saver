@@ -1,0 +1,24 @@
+{
+  "name": "Safe Tabs Saver",
+  "version": "0.0.0",
+  "manifest_version": 2,
+  "description": "Save all your current tabs for a later use, safely in your google account",
+  "author": "Marco Fugaro",
+  "homepage_url": "https://github.com/marcofugaro/safe-tabs-saver",
+  "icons": {
+    "128": "images/icon.png"
+  },
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "chrome_style": true,
+    "page": "options.html"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
