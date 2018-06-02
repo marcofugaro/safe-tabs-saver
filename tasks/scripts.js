@@ -1,6 +1,7 @@
 import gulp from 'gulp'
 import { paths } from '../gulpfile'
 import webpackStream from 'webpack-stream'
+import webpack from 'webpack'
 import Dotenv from 'dotenv-webpack'
 import addSrc from 'gulp-add-src'
 import gulpif from 'gulp-if'
@@ -9,6 +10,7 @@ import notify from 'gulp-notify'
 
 
 const webpackConfig = {
+  mode: 'production',
   output: {
     filename: '[name].js',
   },
@@ -35,7 +37,7 @@ export function scripts() {
   return gulp.src(paths.scripts, { allowEmpty: true })
     .pipe(gulpif(!global.IS_PRODUCTION, addSrc('utils/autoreload.js')))
     .pipe(named())
-    .pipe(webpackStream(webpackConfig))
+    .pipe(webpackStream(webpackConfig, webpack))
     .on('error', notify.onError({
       title: 'Error compiling scripts!',
     }))

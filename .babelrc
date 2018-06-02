@@ -1,17 +1,18 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
         "browsers": ["last 1 Chrome version"]
       },
+      "useBuiltIns": "usage",
       "modules": false
     }],
+    ["@babel/preset-stage-0", {
+      "decoratorsLegacy": true
+    }]
   ],
   "plugins": [
-    "lodash",
-    "transform-decorators-legacy",
-    "transform-function-bind",
-    "transform-export-extensions",
-    "transform-class-properties"
+    "babel-plugin-lodash",
+    "babel-plugin-macros"
   ]
 }
