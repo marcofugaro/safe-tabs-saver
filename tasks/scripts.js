@@ -1,5 +1,6 @@
 import gulp from 'gulp'
 import { paths } from '../gulpfile'
+import path from 'path'
 import webpackStream from 'webpack-stream'
 import webpack from 'webpack'
 import Dotenv from 'dotenv-webpack'
@@ -30,6 +31,10 @@ const webpackConfig = {
   ],
   resolve: {
     modules: ['node_modules', 'src'],
+    // Hack because of the worst package I ever used, wdt-emoji-bundle
+    alias: {
+      'emoji-js$': path.resolve(path.dirname('.'), 'node_modules/wdt-emoji-bundle/emoji.js')
+    },
   },
 }
 
