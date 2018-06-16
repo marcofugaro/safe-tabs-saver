@@ -10,7 +10,7 @@ import notify from 'gulp-notify'
 
 
 const webpackConfig = {
-  mode: 'production',
+  mode: global.IS_PRODUCTION ? 'production' : 'development',
   output: {
     filename: '[name].js',
   },

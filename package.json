@@ -48,6 +48,7 @@
     "gulp-json-editor": "^2.2.1",
     "gulp-notify": "^3.0.0",
     "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
     "gulp-zip": "^4.0.0",
     "puppeteer": "^1.4.0",
     "sass-module-importer": "^1.4.0",
