@@ -37,6 +37,7 @@ import wdtEmojiBundle from 'wdt-emoji-bundle'
   // inizialize the material design text field ripple effect
   document.querySelectorAll('.mdc-text-field').forEach(textInput => new MDCTextField(textInput))
 
+  // disable the hover/active state of the row when interacting with the clickable icon
   document.querySelectorAll('.material-icons').forEach(el => {
     el.addEventListener('mouseenter', () => {
       el.parentNode.classList.add('mdc-list-item--non-interactive')

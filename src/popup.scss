@@ -54,9 +54,13 @@ body {
   &__meta {
     cursor: pointer;
     user-select: none;
-    color: rgba(0, 0, 0, 0.25);
+    color: black;
+    opacity: 0.25;
     &:hover {
-      color: rgba(0, 0, 0, 0.38);
+      opacity: 0.55;
+    }
+    &:active {
+      opacity: 0.80;
     }
     // support multiple .mdc-list-item__meta
     & ~ .mdc-list-item__meta {
@@ -107,7 +111,8 @@ body {
 
     .material-icons {
       user-select: none;
-      color: rgba(0, 0, 0, 0.38);
+      color: #6200ee;
+      opacity: 0.55;
     }
   }
 }
@@ -129,8 +134,9 @@ body {
   }
 }
 
+// disable the hover/active state of the row when interacting with the clickable icon
 .mdc-list-item.mdc-list-item--non-interactive:active::after {
-  opacity: 0.04 !important;
+  opacity: 0 !important;
 }
 
 // misc
@@ -140,4 +146,10 @@ body {
   border: 0;
   padding: 0;
   outline: none;
+}
+.hover-red:hover {
+  color: #DD2C00;
+}
+.hover-blue:hover {
+  color: #6200ee;
 }
