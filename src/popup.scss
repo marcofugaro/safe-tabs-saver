@@ -30,12 +30,16 @@ body {
 
   // emoji on the left
   &__emoji {
-    font-size: 25px;
-    line-height: 1;
     margin-right: 12px;
     padding: 10px;
     background: rgba(0, 0, 0, 0.08);
     border-radius: 50%;
+
+    .emoji-outer {
+      width: 26px;
+      height: 26px;
+      margin-top: 0;
+    }
   }
 
   &__clickable-area {
@@ -92,6 +96,12 @@ body {
     .wdt-emoji-picker {
       opacity: 1;
     }
+  }
+
+  .emoji-outer {
+    width: 26px;
+    height: 26px;
+    margin-top: 0;
   }
 
   .wdt-emoji-picker {

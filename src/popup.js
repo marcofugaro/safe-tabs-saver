@@ -49,6 +49,16 @@ import wdtEmojiBundle from 'wdt-emoji-bundle'
     wdtEmojiBundle.closePickers()
   }
 
+  wdtEmojiBundle.oldFillPickerPopup = wdtEmojiBundle.fillPickerPopup
+
+  wdtEmojiBundle.fillPickerPopup = function() {
+    wdtEmojiBundle.oldFillPickerPopup()
+    wdtEmojiBundle.popup.querySelectorAll('a.wdt-emoji').forEach(emoji => {
+      const shortcode = emoji.getAttribute('data-wdt-emoji-shortnames')
+      emoji.setAttribute('title', shortcode)
+    })
+  }
+
   wdtEmojiBundle.defaults.emojiSheets.apple = './images/emoji_sheets/sheet_apple_64.png'
   wdtEmojiBundle.defaults.emojiSheets.google = './images/emoji_sheets/sheet_google_64.png'
   wdtEmojiBundle.defaults.emojiSheets.twitter = './images/emoji_sheets/sheet_twitter_64.png'
@@ -72,6 +82,12 @@ import wdtEmojiBundle from 'wdt-emoji-bundle'
   })
 
   wdtEmojiBundle.init('.emoji-picker')
+
+  document.querySelector('.emoji-picker__chosen').innerHTML = wdtEmojiBundle.render(':file_folder:')
+
+  // document.querySelectorAll('.mdc-list-item__emoji').forEach(emoji => {
+  //   emoji.innerHTML = wdtEmojiBundle.render(emoji.innerHTML)
+  // })
 
   wdtEmojiBundle.on('afterSelect', (event) => {
     const emojiPicker = event.el.parentNode
