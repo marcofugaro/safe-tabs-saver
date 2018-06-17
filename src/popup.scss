@@ -2,6 +2,7 @@
 @import '@material/list/mdc-list';
 @import '@material/textfield/mdc-text-field';
 @import '@material/snackbar/mdc-snackbar';
+@import '@material/elevation/mdc-elevation';
 @import 'wdt-emoji-bundle/wdt-emoji-bundle.css';
 
 body {
@@ -116,6 +117,38 @@ body {
     }
   }
 }
+
+// the emoji popup that appears
+.wdt-emoji-popup {
+  width: 347px;
+  border: none;
+  border-radius: 2px;
+  overflow: hidden;
+  @include mdc-elevation(8);
+
+  .wdt-emoji-menu-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .wdt-emoji-menu-header {
+      flex-shrink: 0;
+    }
+    .wdt-emoji-scroll-wrapper {
+      flex-grow: 1;
+      padding-bottom: 0;
+    }
+
+    .wdt-emoji-section {
+      padding-top: 0 !important;
+    }
+  }
+
+  #wdt-emoji-footer, #wdt-emoji-popup-mobile-closer {
+    display: none;
+  }
+}
+
 
 // the snackbar of when you delete the row
 .mdc-snackbar {

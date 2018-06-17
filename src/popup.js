@@ -25,6 +25,30 @@ import wdtEmojiBundle from 'wdt-emoji-bundle'
     element.classList.add('wdt-emoji-picker-ready')
   }
 
+  wdtEmojiBundle.openPicker = function(event) {
+    if (wdtEmojiBundle.popup.classList.contains('open')) {
+      wdtEmojiBundle.close()
+      return
+    }
+
+    wdtEmojiBundle.input = event.currentTarget
+
+    const inputRect = wdtEmojiBundle.input.getBoundingClientRect()
+
+    const top = inputRect.top + inputRect.height
+    const left = inputRect.left
+
+    wdtEmojiBundle.popup.style.top = `${top + 8}px`
+    wdtEmojiBundle.popup.style.left = `${left}px`
+
+    wdtEmojiBundle.popup.classList.add('open')
+
+    // fill with emoji
+    wdtEmojiBundle.fillPickerPopup()
+
+    wdtEmojiBundle.closePickers()
+  }
+
   wdtEmojiBundle.defaults.emojiSheets.apple = './images/emoji_sheets/sheet_apple_64.png'
   wdtEmojiBundle.defaults.emojiSheets.google = './images/emoji_sheets/sheet_google_64.png'
   wdtEmojiBundle.defaults.emojiSheets.twitter = './images/emoji_sheets/sheet_twitter_64.png'
@@ -38,7 +62,7 @@ import wdtEmojiBundle from 'wdt-emoji-bundle'
   document.querySelectorAll('.mdc-text-field').forEach(textInput => new MDCTextField(textInput))
 
   // disable the hover/active state of the row when interacting with the clickable icon
-  document.querySelectorAll('.material-icons').forEach(el => {
+  document.querySelectorAll('[data-no-trigger-active-parent="true"]').forEach(el => {
     el.addEventListener('mouseenter', () => {
       el.parentNode.classList.add('mdc-list-item--non-interactive')
     })
@@ -49,6 +73,10 @@ import wdtEmojiBundle from 'wdt-emoji-bundle'
 
   wdtEmojiBundle.init('.emoji-picker')
 
-
+  wdtEmojiBundle.on('afterSelect', (event) => {
+    const emojiPicker = event.el.parentNode
+    const activeIconContainer = emojiPicker.querySelector('.emoji-picker__chosen')
+    activeIconContainer.innerHTML = wdtEmojiBundle.render(event.emoji)
+  })
 
 })()
