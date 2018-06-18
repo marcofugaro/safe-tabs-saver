@@ -28,6 +28,7 @@
     "@material/snackbar": "^0.36.0",
     "@material/textfield": "^0.35.2",
     "@material/typography": "^0.35.0",
+    "lit-html": "^0.10.2",
     "wdt-emoji-bundle": "^0.2.1",
     "webextension-polyfill": "^0.2.1"
   },
