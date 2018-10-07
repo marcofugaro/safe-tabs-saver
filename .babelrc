@@ -7,12 +7,14 @@
       "useBuiltIns": "usage",
       "modules": false
     }],
-    ["@babel/preset-stage-0", {
-      "decoratorsLegacy": true
-    }]
+    ["babel-preset-proposals", {
+      "all": true
+    }],
+    "@babel/preset-react"
   ],
   "plugins": [
     "babel-plugin-lodash",
-    "babel-plugin-macros"
+    "babel-plugin-macros",
+    "react-html-attrs"
   ]
 }
