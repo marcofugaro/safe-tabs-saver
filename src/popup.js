@@ -15,34 +15,34 @@ import WindowsList from './popup/WindowsList'
       id: 'dasdasdasda',
       tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
       name: 'Dog Shit',
-      emoji: '📁',
+      emoji: '🗂',
     },
     {
       id: 'dadgsd',
       tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
       name: 'Dog Ass',
-      emoji: '📁',
+      emoji: '🗂',
     },
     {
       id: 'dhvsgls',
       tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
       name: 'Dog Piss',
-      emoji: '📁',
+      emoji: '🗂',
     },
     {
       id: 'ldadnm',
       tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
       name: 'Dog Vomit',
-      emoji: '📁',
+      emoji: '🗂',
     },
   ]
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 2; i++) {
     testSavedWindows.push({
       id: Math.random().toString(),
       tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
       name: 'Dog Vomit',
-      emoji: '📁',
+      emoji: '🗂',
     })
   }
 
