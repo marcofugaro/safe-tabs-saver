@@ -38,6 +38,7 @@ export default class WindowsList extends Component {
                 )
                 return (
                   <div
+                    key={deletedWindow.id}
                     class={`mdc-list-item ${
                       window.id === currentWindowId ? 'mdc-list-item--selected' : ''
                     }`}
@@ -67,24 +68,23 @@ export default class WindowsList extends Component {
               if (editedWindow) {
                 return (
                   <form
+                    key={editedWindow.id}
                     class={`mdc-list-item ${
                       window.id === currentWindowId ? 'mdc-list-item--selected' : ''
                     }`}
                     onSubmit={preventingDefault(() => windows.applyEdit(editedWindow))}
                   >
-                    <div
-                      class="mdc-list-item__emoji emoji-picker"
-                      data-no-trigger-active-parent="true"
-                    >
-                      <span class="emoji-picker__chosen" data-emoji={editedWindow.emoji}>
-                        {editedWindow.emoji}
-                      </span>
-                      <div class="wdt-emoji-picker">
-                        <i class="material-icons hover-blue">edit</i>
-                      </div>
+                    <div class="mdc-list-item__emoji">
+                      <TextField label="emoji">
+                        <Input
+                          value={editedWindow.emoji}
+                          onChange={eventValueExtractor(editedWindow.setEmoji)}
+                          required="required"
+                        />
+                      </TextField>
                     </div>
 
-                    <TextField>
+                    <TextField label="text">
                       <Input
                         value={editedWindow.name}
                         onChange={eventValueExtractor(editedWindow.setName)}
@@ -95,13 +95,11 @@ export default class WindowsList extends Component {
                     <button
                       type="submit"
                       class="button-reset mdc-list-item__meta material-icons hover-blue"
-                      data-no-trigger-active-parent="true"
                     >
                       check
                     </button>
                     <i
                       class="mdc-list-item__meta material-icons hover-red"
-                      data-no-trigger-active-parent="true"
                       onClick={() => windows.delete(editedWindow)}
                     >
                       delete
@@ -113,6 +111,7 @@ export default class WindowsList extends Component {
               const savedWindow = windows.savedList[i - deletedIndex]
               return (
                 <div
+                  key={savedWindow.id}
                   class={`mdc-list-item ${
                     window.id === currentWindowId ? 'mdc-list-item--selected' : ''
                   }`}
@@ -123,7 +122,6 @@ export default class WindowsList extends Component {
                   </div>
                   <i
                     class="mdc-list-item__meta material-icons hover-blue"
-                    data-no-trigger-active-parent="true"
                     onClick={() => windows.edit(savedWindow)}
                   >
                     edit

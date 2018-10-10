@@ -1,5 +1,9 @@
 import { types as t } from 'mobx-state-tree'
 import uuid from 'uuid/v4'
+import emojiRegex from 'emoji-regex/text.js'
+
+const isOnlyEmoji = string => string.replace(emojiRegex(), '') === ''
+const countEmojis = string => (string.match(emojiRegex()) || []).length
 
 const Window = t
   .model('Window', {
@@ -12,6 +16,17 @@ const Window = t
   .actions(self => ({
     setName(name) {
       self.name = name
+    },
+    setEmoji(emoji) {
+      if (!isOnlyEmoji(emoji)) {
+        return
+      }
+
+      if (countEmojis(emoji) > 1) {
+        return
+      }
+
+      self.emoji = emoji
     },
   }))
 

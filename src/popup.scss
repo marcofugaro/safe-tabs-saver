@@ -135,9 +135,11 @@ body {
   padding: 0;
   outline: none;
 }
-.hover-red:hover {
+.hover-red:hover,
+.hover-red:focus {
   color: #dd2c00;
 }
-.hover-blue:hover {
+.hover-blue:hover,
+.hover-blue:focus {
   color: #6200ee;
 }
