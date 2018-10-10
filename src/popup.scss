@@ -1,7 +1,7 @@
+@import 'modern-normalize';
 @import '@material/button/mdc-button';
 @import '@material/list/mdc-list';
-// @import '@material/textfield/mdc-text-field';
-@import '@material/react-text-field/index';
+@import '@material/react-text-field/index.scss';
 @import '@material/snackbar/mdc-snackbar';
 @import '@material/elevation/mdc-elevation';
 
@@ -29,16 +29,19 @@ body {
 
   // emoji on the left
   &__emoji {
+    flex-shrink: 0;
     margin-right: 12px;
-    padding: 10px;
+    padding: 12px;
+    width: 44px;
+    height: 44px;
     background: rgba(0, 0, 0, 0.08);
     border-radius: 50%;
-
-    .emoji-outer {
-      width: 26px;
-      height: 26px;
-      margin-top: 0;
-    }
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__clickable-area {
@@ -49,6 +52,8 @@ body {
     align-items: center;
     margin-left: -16px;
     padding-left: 16px;
+    overflow: hidden;
+
     & + .mdc-list-item__meta {
       margin-left: 12px;
     }
@@ -74,12 +79,18 @@ body {
 
   // fix the input alignment inside the list
   .mdc-text-field {
+    flex-grow: 1;
+    margin-right: 48px;
+    background: none;
+    &:before {
+      background: none;
+    }
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     height: auto !important;
   }
   .mdc-text-field__input {
-    padding: 0;
+    padding: 6px 0;
   }
 }
 
@@ -90,6 +101,10 @@ body {
   padding-bottom: 8px;
   padding-right: 20px;
   padding-left: 20px;
+
+  margin-right: -16px;
+  margin-left: -16px;
+  flex-grow: 1;
 
   &__text {
     font-size: 0.875rem;

@@ -6,48 +6,47 @@ import { onSnapshot } from 'mobx-state-tree'
 import { MDCTextField } from '@material/textfield'
 import State from './popup/State'
 import WindowsList from './popup/WindowsList'
-
 ;(async () => {
   // wait for the document
   await browser.browserAction.getPopup({})
 
-  // const testSavedWindows = [
-  //   {
-  //     id: 'dasdasdasda',
-  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-  //     name: 'Dog Shit',
-  //     emoji: ':eggplant:',
-  //   },
-  //   {
-  //     id: 'dadgsd',
-  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-  //     name: 'Dog Ass',
-  //     emoji: ':eggplant:',
-  //   },
-  //   {
-  //     id: 'dhvsgls',
-  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-  //     name: 'Dog Piss',
-  //     emoji: ':eggplant:',
-  //   },
-  //   {
-  //     id: 'òsgmlsòldadnm',
-  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-  //     name: 'Dog Vomit',
-  //     emoji: ':eggplant:',
-  //   },
-  // ]
-  //
-  // for (let i = 0; i < 5; i++) {
-  //   testSavedWindows.push({
-  //     id: Math.random().toString(),
-  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-  //     name: 'Dog Vomit',
-  //     emoji: ':eggplant:',
-  //   })
-  // }
-  //
-  // await browser.storage.sync.set({ savedList: testSavedWindows })
+  const testSavedWindows = [
+    {
+      id: 'dasdasdasda',
+      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+      name: 'Dog Shit',
+      emoji: '📁',
+    },
+    {
+      id: 'dadgsd',
+      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+      name: 'Dog Ass',
+      emoji: '📁',
+    },
+    {
+      id: 'dhvsgls',
+      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+      name: 'Dog Piss',
+      emoji: '📁',
+    },
+    {
+      id: 'ldadnm',
+      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+      name: 'Dog Vomit',
+      emoji: '📁',
+    },
+  ]
+
+  for (let i = 0; i < 5; i++) {
+    testSavedWindows.push({
+      id: Math.random().toString(),
+      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+      name: 'Dog Vomit',
+      emoji: '📁',
+    })
+  }
+
+  await browser.storage.sync.set({ savedList: testSavedWindows })
 
   const OPTIONS_DEFAULTS = {
     savedList: [],
@@ -55,7 +54,7 @@ import WindowsList from './popup/WindowsList'
 
   // fill the state with the storage data
   const { savedList } = await browser.storage.sync.get({ savedList: [] })
-  console.log(savedList)
+
   const placeholderArray = Array(savedList.length).fill()
   const state = State.create({
     windows: {
