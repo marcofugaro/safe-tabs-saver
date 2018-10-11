@@ -80,20 +80,45 @@ body {
     }
   }
 
-  // the text input
-  .mdc-text-field {
+  // the emoji input
+  .mdc-text-field.mdc-list-item__emoji-input {
+    flex-shrink: 0;
+    margin-right: 12px;
+    width: 44px;
+    .mdc-text-field__input {
+      // pixel perfect alignment between the unedited and edited
+      margin-top: 1px;
+      margin-left: 2px;
+      padding: 0;
+      text-align: center;
+      font-size: 25px;
+      line-height: 1;
+    }
+  }
+
+  // the label input
+  .mdc-list-item__input {
     flex-grow: 1;
     margin-right: 48px;
-    background: none;
-    &:before {
-      background: none;
-    }
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    height: auto !important;
   }
+}
+
+// the text input
+// the double specificity hack 💻 🕸 🚬 is because
+// the original class has weird classes
+.mdc-text-field.mdc-text-field {
+  background: none;
+  &:before {
+    background: none;
+  }
+  margin-top: 0;
+  margin-bottom: 0;
+  height: auto;
   .mdc-text-field__input {
     padding: 6px 0;
+  }
+  .mdc-floating-label {
+    display: none;
   }
 }
 

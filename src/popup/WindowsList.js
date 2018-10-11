@@ -74,17 +74,15 @@ export default class WindowsList extends Component {
                     }`}
                     onSubmit={preventingDefault(() => windows.applyEdit(editedWindow))}
                   >
-                    <div class="mdc-list-item__emoji">
-                      <TextField label="emoji">
-                        <Input
-                          value={editedWindow.emoji}
-                          onChange={eventValueExtractor(editedWindow.setEmoji)}
-                          required="required"
-                        />
-                      </TextField>
-                    </div>
+                    <TextField label="emoji" class="mdc-list-item__emoji-input">
+                      <Input
+                        value={editedWindow.emoji}
+                        onChange={eventValueExtractor(editedWindow.setEmoji)}
+                        required="required"
+                      />
+                    </TextField>
 
-                    <TextField label="text">
+                    <TextField label="text" class="mdc-list-item__input">
                       <Input
                         value={editedWindow.name}
                         onChange={eventValueExtractor(editedWindow.setName)}

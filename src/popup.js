@@ -10,43 +10,43 @@ import WindowsList from './popup/WindowsList'
   // wait for the document
   await browser.browserAction.getPopup({})
 
-  const testSavedWindows = [
-    {
-      id: 'dasdasdasda',
-      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-      name: 'Dog Shit',
-      emoji: '🗂',
-    },
-    {
-      id: 'dadgsd',
-      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-      name: 'Dog Ass',
-      emoji: '🗂',
-    },
-    {
-      id: 'dhvsgls',
-      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-      name: 'Dog Piss',
-      emoji: '🗂',
-    },
-    {
-      id: 'ldadnm',
-      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-      name: 'Dog Vomit',
-      emoji: '🗂',
-    },
-  ]
-
-  for (let i = 0; i < 2; i++) {
-    testSavedWindows.push({
-      id: Math.random().toString(),
-      tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
-      name: 'Dog Vomit',
-      emoji: '🗂',
-    })
-  }
-
-  await browser.storage.sync.set({ savedList: testSavedWindows })
+  // const testSavedWindows = [
+  //   {
+  //     id: 'dasdasdasda',
+  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+  //     name: 'Dog Shit',
+  //     emoji: '🗂',
+  //   },
+  //   {
+  //     id: 'dadgsd',
+  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+  //     name: 'Dog Ass',
+  //     emoji: '🗂',
+  //   },
+  //   {
+  //     id: 'dhvsgls',
+  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+  //     name: 'Dog Piss',
+  //     emoji: '🗂',
+  //   },
+  //   {
+  //     id: 'ldadnm',
+  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+  //     name: 'Dog Vomit',
+  //     emoji: '🗂',
+  //   },
+  // ]
+  //
+  // for (let i = 0; i < 2; i++) {
+  //   testSavedWindows.push({
+  //     id: Math.random().toString(),
+  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+  //     name: 'Dog Vomit',
+  //     emoji: '🗂',
+  //   })
+  // }
+  //
+  // await browser.storage.sync.set({ savedList: testSavedWindows })
 
   const OPTIONS_DEFAULTS = {
     savedList: [],
