@@ -49,6 +49,9 @@ body {
   // where you can click when not editing the icon
   &__clickable-area {
     cursor: pointer;
+    .mdc-list-item--selected & {
+      cursor: default;
+    }
     align-self: stretch;
     flex-grow: 1;
     display: flex;
@@ -147,9 +150,29 @@ body {
 // this is a sass trick ✨🎩
 .mdc-list-item__clickable-area::after {
   @extend .mdc-list-item::after;
+  // make tha active transition faster
+  transition: opacity 0.05s ease !important;
 }
 .mdc-list > .mdc-list-item::after {
   display: none;
+}
+
+// trigger the hover state only when in clickable area
+// this is a sass trick ✨🎩
+.mdc-list-item__clickable-area::before {
+  @extend .mdc-list-item::before;
+}
+.mdc-list > .mdc-list-item:not(.mdc-list-item--selected)::before {
+  display: none;
+}
+
+// disable hover/active states of row when is the selected one
+.mdc-list-item.mdc-list-item--selected .mdc-list-item__clickable-area::after,
+.mdc-list-item.mdc-list-item--selected .mdc-list-item__clickable-area::before {
+  display: none;
+}
+.mdc-list-item.mdc-list-item--selected:hover::before {
+  opacity: 0.08 !important;
 }
 
 // misc

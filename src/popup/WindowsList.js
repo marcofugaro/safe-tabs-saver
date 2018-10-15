@@ -4,8 +4,7 @@ import browser from 'webextension-polyfill'
 import { eventValueExtractor, preventingDefault } from '@accurat/event-utils'
 import TextField, { Input } from '@material/react-text-field'
 
-const currentWindowId = 223
-export const DELETE_TIMEOUT = 500000
+export const DELETE_TIMEOUT = 5000
 
 @inject('state')
 @observer
@@ -20,7 +19,7 @@ export default class WindowsList extends Component {
     return (
       <>
         <div class="header">
-          <button class="mdc-button mdc-button--raised">
+          <button class="mdc-button mdc-button--raised" onClick={windows.addCurrent}>
             <i class="material-icons mdc-button__icon" aria-hidden="true">
               save_alt
             </i>
@@ -37,12 +36,7 @@ export default class WindowsList extends Component {
                   DELETE_TIMEOUT,
                 )
                 return (
-                  <div
-                    key={deletedWindow.id}
-                    class={`mdc-list-item ${
-                      window.id === currentWindowId ? 'mdc-list-item--selected' : ''
-                    }`}
-                  >
+                  <div key={deletedWindow.id} class={`mdc-list-item`}>
                     <div class="mdc-snackbar mdc-snackbar--active">
                       <div class="mdc-snackbar__text">
                         Successfully deleted {deletedWindow.name}.
@@ -69,9 +63,12 @@ export default class WindowsList extends Component {
                 return (
                   <form
                     key={editedWindow.id}
-                    class={`mdc-list-item ${
-                      window.id === currentWindowId ? 'mdc-list-item--selected' : ''
-                    }`}
+                    class={`
+                      mdc-list-item
+                      ${
+                        editedWindow.id === windows.currentWindowId ? 'mdc-list-item--selected' : ''
+                      }
+                    `}
                     onSubmit={preventingDefault(() => windows.applyEdit(editedWindow))}
                   >
                     <TextField label="emoji" class="mdc-list-item__emoji-input">
@@ -110,11 +107,16 @@ export default class WindowsList extends Component {
               return (
                 <div
                   key={savedWindow.id}
-                  class={`mdc-list-item ${
-                    window.id === currentWindowId ? 'mdc-list-item--selected' : ''
-                  }`}
+                  class={`
+                    mdc-list-item
+                    ${savedWindow.id === windows.currentWindowId ? 'mdc-list-item--selected' : ''}
+                    `}
                 >
-                  <div class="mdc-list-item__clickable-area">
+                  <div
+                    class={`
+                    mdc-list-item__clickable-area
+                  `}
+                  >
                     <div class="mdc-list-item__emoji">{savedWindow.emoji}</div>
                     {savedWindow.name}
                   </div>

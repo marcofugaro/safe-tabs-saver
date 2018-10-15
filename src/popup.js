@@ -6,6 +6,11 @@ import { onSnapshot } from 'mobx-state-tree'
 import { MDCTextField } from '@material/textfield'
 import State from './popup/State'
 import WindowsList from './popup/WindowsList'
+
+function isArrayEqual(arr1, arr2) {
+  return JSON.stringify(arr1) === JSON.stringify(arr2)
+}
+
 ;(async () => {
   // wait for the document
   await browser.browserAction.getPopup({})
@@ -48,19 +53,28 @@ import WindowsList from './popup/WindowsList'
   //
   // await browser.storage.sync.set({ savedList: testSavedWindows })
 
-  const OPTIONS_DEFAULTS = {
+  const STORAGE_DEFAULTS = {
     savedList: [],
   }
 
-  // fill the state with the storage data
-  const { savedList } = await browser.storage.sync.get({ savedList: [] })
+  // retrieve the storage data acnd current tabs
+  const [{ savedList }, tabs] = await Promise.all([
+    browser.storage.sync.get(STORAGE_DEFAULTS),
+    browser.tabs.query({ currentWindow: true }),
+  ])
 
+  // check if the current tab list was already saved
+  const tabsList = tabs.map(tab => tab.url)
+  const currentWindowId = savedList.find(w => isArrayEqual(w.tabs, tabsList))?.id
+
+  // fill the state
   const placeholderArray = Array(savedList.length).fill()
   const state = State.create({
     windows: {
       savedList,
       editingList: placeholderArray,
       trashBin: placeholderArray,
+      currentWindowId,
     },
   })
 

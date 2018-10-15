@@ -36,6 +36,7 @@
     "modern-normalize": "^0.5.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "superb": "^3.0.0",
     "webextension-polyfill": "^0.3.1"
   },
   "devDependencies": {
