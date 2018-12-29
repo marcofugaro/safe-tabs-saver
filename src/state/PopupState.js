@@ -1,39 +1,11 @@
+import browser from 'webextension-polyfill'
 import { types as t, flow } from 'mobx-state-tree'
 import uuid from 'uuid/v4'
-import browser from 'webextension-polyfill'
-import emojiRegex from 'emoji-regex/text.js'
 import superb from 'superb'
+import Window from './Window'
 
-const isOnlyEmoji = string => string.replace(emojiRegex(), '') === ''
-const countEmojis = string => (string.match(emojiRegex()) || []).length
-
-const Window = t
-  .model('Window', {
-    id: t.identifier,
-    tabs: t.array(t.string),
-    name: t.string,
-    emoji: t.string,
-  })
-  .views(self => ({}))
-  .actions(self => ({
-    setName(name) {
-      self.name = name
-    },
-    setEmoji(emoji) {
-      if (!isOnlyEmoji(emoji)) {
-        return
-      }
-
-      if (countEmojis(emoji) > 1) {
-        return
-      }
-
-      self.emoji = emoji
-    },
-  }))
-
-const Windows = t
-  .model('Windows', {
+const PopupState = t
+  .model('PopupState', {
     // this is kept in sync with the state
     savedList: t.array(Window),
     // this contains the windows currently being edited,
@@ -88,7 +60,8 @@ const Windows = t
       self.currentWindowId = currentWindow.id
       self.savedList.unshift(currentWindow)
       self.editingList.unshift(currentWindow)
+      self.trashBin.unshift(undefined)
     }),
   }))
 
-export default Windows
+export default PopupState

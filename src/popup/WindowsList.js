@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import browser from 'webextension-polyfill'
 import { eventValueExtractor, preventingDefault } from '@accurat/event-utils'
 import TextField, { Input } from '@material/react-text-field'
 
 export const DELETE_TIMEOUT = 5000
 
+export default
 @inject('state')
 @observer
-export default class WindowsList extends Component {
+class WindowsList extends Component {
   render() {
-    const { windows } = this.props.state
+    const { state } = this.props
 
     // need to handle the fact that the trashBin contains the already deleted windows,
     // so its length is greater than the savedList or editingList
@@ -19,7 +19,7 @@ export default class WindowsList extends Component {
     return (
       <>
         <div class="header">
-          <button class="mdc-button mdc-button--raised" onClick={windows.addCurrent}>
+          <button class="mdc-button mdc-button--raised" onClick={state.addCurrent}>
             <i class="material-icons mdc-button__icon" aria-hidden="true">
               save_alt
             </i>
@@ -28,11 +28,11 @@ export default class WindowsList extends Component {
         </div>
         <div class="tabs-list">
           <div class="mdc-list mdc-list--avatar-list" id="saved-windows-container">
-            {windows.trashBin.map((deletedWindow, i) => {
+            {state.trashBin.map((deletedWindow, i) => {
               if (deletedWindow) {
                 deletedIndex++
                 const deleteTimeout = setTimeout(
-                  () => windows.deletePermanently(deletedWindow),
+                  () => state.deletePermanently(deletedWindow),
                   DELETE_TIMEOUT,
                 )
                 return (
@@ -47,7 +47,7 @@ export default class WindowsList extends Component {
                           class="mdc-snackbar__action-button"
                           onClick={() => {
                             clearTimeout(deleteTimeout)
-                            windows.unDelete(deletedWindow)
+                            state.unDelete(deletedWindow)
                           }}
                         >
                           Undo
@@ -58,18 +58,16 @@ export default class WindowsList extends Component {
                 )
               }
 
-              const editedWindow = windows.editingList[i - deletedIndex]
+              const editedWindow = state.editingList[i - deletedIndex]
               if (editedWindow) {
                 return (
                   <form
                     key={editedWindow.id}
                     class={`
                       mdc-list-item
-                      ${
-                        editedWindow.id === windows.currentWindowId ? 'mdc-list-item--selected' : ''
-                      }
+                      ${editedWindow.id === state.currentWindowId ? 'mdc-list-item--selected' : ''}
                     `}
-                    onSubmit={preventingDefault(() => windows.applyEdit(editedWindow))}
+                    onSubmit={preventingDefault(() => state.applyEdit(editedWindow))}
                   >
                     <TextField label="emoji" class="mdc-list-item__emoji-input">
                       <Input
@@ -95,7 +93,7 @@ export default class WindowsList extends Component {
                     </button>
                     <i
                       class="mdc-list-item__meta material-icons hover-red"
-                      onClick={() => windows.delete(editedWindow)}
+                      onClick={() => state.delete(editedWindow)}
                     >
                       delete
                     </i>
@@ -103,13 +101,13 @@ export default class WindowsList extends Component {
                 )
               }
 
-              const savedWindow = windows.savedList[i - deletedIndex]
+              const savedWindow = state.savedList[i - deletedIndex]
               return (
                 <div
                   key={savedWindow.id}
                   class={`
                     mdc-list-item
-                    ${savedWindow.id === windows.currentWindowId ? 'mdc-list-item--selected' : ''}
+                    ${savedWindow.id === state.currentWindowId ? 'mdc-list-item--selected' : ''}
                     `}
                 >
                   <div
@@ -122,7 +120,7 @@ export default class WindowsList extends Component {
                   </div>
                   <i
                     class="mdc-list-item__meta material-icons hover-blue"
-                    onClick={() => windows.edit(savedWindow)}
+                    onClick={() => state.edit(savedWindow)}
                   >
                     edit
                   </i>
