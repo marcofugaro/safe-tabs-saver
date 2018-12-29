@@ -1,8 +1,6 @@
 import browser from 'webextension-polyfill'
 
-const OPTIONS_DEFAULTS = {
-  'emojiStyle': 'apple',
-}
+const OPTIONS_DEFAULTS = {}
 
 function saveOption(e) {
   const optionNode = e.currentTarget
@@ -16,12 +14,14 @@ function saveOption(e) {
 async function restoreOptions() {
   const options = await browser.storage.sync.get(OPTIONS_DEFAULTS)
 
-  Object.keys(options).forEach((option) => {
+  Object.keys(options).forEach(option => {
     const optionNode = document.querySelector(`input[name="${option}"]`)
 
     switch (optionNode.type) {
       case 'radio':
-        const targetRadio = document.querySelector(`input[name="${option}"][value="${options[option]}"]`)
+        const targetRadio = document.querySelector(
+          `input[name="${option}"][value="${options[option]}"]`,
+        )
         if (targetRadio) {
           targetRadio.checked = true
         }
@@ -35,8 +35,7 @@ async function restoreOptions() {
   })
 }
 
-
 document.addEventListener('DOMContentLoaded', restoreOptions)
 
 const options = [...document.querySelectorAll('input, select')]
-options.forEach((el) => el.addEventListener('change', saveOption))
+options.forEach(el => el.addEventListener('change', saveOption))
