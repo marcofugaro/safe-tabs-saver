@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill'
-import { types as t, getSnapshot } from 'mobx-state-tree'
+import { types as t, getSnapshot, getRoot } from 'mobx-state-tree'
 import emojiRegex from 'emoji-regex/text.js'
 
 const isOnlyEmoji = string => string.replace(emojiRegex(), '') === ''
@@ -31,7 +31,24 @@ const Window = t
 
       self.emoji = emoji
     },
-    open() {
+    async open() {
+      const { windowsIdMap } = getRoot(self)
+
+      // attempt to focus if the window is already open
+      if (windowsIdMap.has(self.id)) {
+        const windowId = windowsIdMap.get(self.id)
+        try {
+          await browser.windows.update(windowId, { focused: true })
+
+          // force the popup to close
+          window.close()
+          return
+        } catch (e) {
+          // e.message is 'No window with id: ...'
+          // do nothing so it creates a new window
+        }
+      }
+
       browser.windows.create({ url: getSnapshot(self.tabs) })
 
       // force the popup to close

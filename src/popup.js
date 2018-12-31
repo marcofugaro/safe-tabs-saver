@@ -11,8 +11,8 @@ async function init() {
   // wait for the document
   await browser.browserAction.getPopup({})
 
-  // get the focused window id
-  const { id: focusedWindowId } = await browser.windows.getLastFocused({})
+  // get the current window id
+  const { id: currentWindowId } = await browser.windows.getCurrent({})
 
   // initialize the state
   const state = PopupState.create()
@@ -28,13 +28,14 @@ async function init() {
   port.onMessage.addListener(({ savedList, windowsIdMap }) => {
     const placeholderArray = Array(savedList.length).fill()
 
-    const id = _.findKey(windowsIdMap, windowId => windowId === focusedWindowId)
+    const id = _.findKey(windowsIdMap, windowId => windowId === currentWindowId)
 
     applySnapshot(state, {
       savedList,
       editingList: placeholderArray,
       trashBin: placeholderArray,
-      focusedWindowId: id,
+      currentWindowId: id,
+      windowsIdMap,
     })
 
     // keep the background updated with the popup

@@ -15,7 +15,9 @@ const PopupState = t
     // at the original index
     trashBin: t.array(t.maybe(Window)),
     // the one we're in
-    focusedWindowId: t.maybe(t.string),
+    currentWindowId: t.maybe(t.string),
+    // a snapshot of the current windowsIdMap
+    windowsIdMap: t.map(t.number),
   })
   .views(self => ({}))
   .actions(self => ({
@@ -46,12 +48,12 @@ const PopupState = t
       self.savedList.remove(self.savedList[index])
       self.editingList.remove(self.editingList[index])
 
-      // save the focused window id if we delete it,
+      // save the current window id if we delete it,
       // to restore it if we undelete it
       const id = self.trashBin[trashBinIndex].id
-      if (self.focusedWindowId === id) {
-        self.focusedWindowId = undefined
-        self.lastFocusedWindowId = id
+      if (self.currentWindowId === id) {
+        self.currentWindowId = undefined
+        self.lastdWindowId = id
       }
     },
     unDelete(deletedWindow) {
@@ -64,25 +66,25 @@ const PopupState = t
       self.editingList.splice(index, 0, undefined)
       self.trashBin[trashBinIndex] = undefined
 
-      // restore the focused window id
+      // restore the current window id
       const id = self.savedList[index].id
-      if (self.lastFocusedWindowId === id) {
-        self.focusedWindowId = id
-        self.lastFocusedWindowId = undefined
+      if (self.lastdWindowId === id) {
+        self.currentWindowId = id
+        self.lastdWindowId = undefined
       }
     },
     deletePermanently(deletedWindow) {
       self.trashBin.remove(deletedWindow)
     },
-    emptyTrashBinFocused() {
-      if (!self.lastFocusedWindowId) {
+    emptyTrashBinCurrent() {
+      if (!self.lastdWindowId) {
         return
       }
 
-      const focusedTrashed = self.trashBin.find(w => w?.id === self.lastFocusedWindowId)
+      const currentTrashed = self.trashBin.find(w => w?.id === self.lastdWindowId)
 
-      if (focusedTrashed) {
-        self.trashBin.remove(focusedTrashed)
+      if (currentTrashed) {
+        self.trashBin.remove(currentTrashed)
       }
     },
     addCurrent: flow(function*() {
@@ -95,10 +97,10 @@ const PopupState = t
         emoji: '🗂',
       }
 
-      // make sure to delete the last focused tab
-      self.emptyTrashBinFocused()
+      // make sure to delete the last current tab
+      self.emptyTrashBinCurrent()
 
-      self.focusedWindowId = currentWindow.id
+      self.currentWindowId = currentWindow.id
       self.savedList.unshift(currentWindow)
       self.editingList.unshift(currentWindow)
       self.trashBin.unshift(undefined)

@@ -23,10 +23,10 @@ function computeWindowsIdMap(windows, savedList) {
 
 async function init() {
   // const testSavedWindows = []
-  // for (let i = 0; i < 1; i++) {
+  // for (let i = 0; i < 2; i++) {
   //   testSavedWindows.push({
   //     id: Math.random().toString(),
-  //     tabs: ['http://google.com', 'https://dn.ht/picklecat/'],
+  //     tabs: ['http://google.com/', 'https://dn.ht/picklecat/'],
   //     name: 'Dog Vomit',
   //     emoji: '🗂',
   //   })
