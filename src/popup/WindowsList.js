@@ -19,12 +19,14 @@ class WindowsList extends Component {
     return (
       <>
         <div class="header">
-          <button class="mdc-button mdc-button--raised" onClick={state.addCurrent}>
-            <i class="material-icons mdc-button__icon" aria-hidden="true">
-              save_alt
-            </i>
-            Save current tabs
-          </button>
+          {!state.focusedWindowId && (
+            <button class="mdc-button mdc-button--raised" onClick={state.addCurrent}>
+              <i class="material-icons mdc-button__icon" aria-hidden="true">
+                save_alt
+              </i>
+              Save current tabs
+            </button>
+          )}
         </div>
         <div class="tabs-list">
           <div class="mdc-list mdc-list--avatar-list" id="saved-windows-container">
@@ -65,7 +67,7 @@ class WindowsList extends Component {
                     key={editedWindow.id}
                     class={`
                       mdc-list-item
-                      ${editedWindow.id === state.currentWindowId ? 'mdc-list-item--selected' : ''}
+                      ${editedWindow.id === state.focusedWindowId ? 'mdc-list-item--selected' : ''}
                     `}
                     onSubmit={preventingDefault(() => state.applyEdit(editedWindow))}
                   >
@@ -107,13 +109,14 @@ class WindowsList extends Component {
                   key={savedWindow.id}
                   class={`
                     mdc-list-item
-                    ${savedWindow.id === state.currentWindowId ? 'mdc-list-item--selected' : ''}
+                    ${savedWindow.id === state.focusedWindowId ? 'mdc-list-item--selected' : ''}
                     `}
                 >
                   <div
                     class={`
                     mdc-list-item__clickable-area
                   `}
+                    onClick={savedWindow.id === state.focusedWindowId ? null : savedWindow.open}
                   >
                     <div class="mdc-list-item__emoji">{savedWindow.emoji}</div>
                     {savedWindow.name}

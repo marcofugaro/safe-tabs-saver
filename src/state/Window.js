@@ -1,4 +1,5 @@
-import { types as t } from 'mobx-state-tree'
+import browser from 'webextension-polyfill'
+import { types as t, getSnapshot } from 'mobx-state-tree'
 import emojiRegex from 'emoji-regex/text.js'
 
 const isOnlyEmoji = string => string.replace(emojiRegex(), '') === ''
@@ -29,6 +30,12 @@ const Window = t
       }
 
       self.emoji = emoji
+    },
+    open() {
+      browser.windows.create({ url: getSnapshot(self.tabs) })
+
+      // force the popup to close
+      window.close()
     },
   }))
 
