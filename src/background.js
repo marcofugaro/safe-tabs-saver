@@ -3,6 +3,7 @@ import { onSnapshot, applySnapshot } from 'mobx-state-tree'
 import { reaction } from 'mobx'
 import _ from 'lodash'
 import BackgroundState from './state/BackgroundState'
+import largeSync from './large-sync'
 
 // try to match the existing tabs to the stored ones
 function computeWindowsIdMap(windows, savedList) {
@@ -23,15 +24,15 @@ function computeWindowsIdMap(windows, savedList) {
 
 async function init() {
   // const testSavedWindows = []
-  // for (let i = 0; i < 2; i++) {
+  // for (let i = 0; i < 500; i++) {
   //   testSavedWindows.push({
   //     id: Math.random().toString(),
-  //     tabs: ['http://google.com/', 'https://dn.ht/picklecat/'],
+  //     tabs: Array(500).fill('http://google.com/'),
   //     name: 'Dog Vomit',
   //     emoji: '🗂',
   //   })
   // }
-  // await browser.storage.sync.set({ savedList: testSavedWindows })
+  // await largeSync.set({ savedList: testSavedWindows })
 
   const STORAGE_DEFAULTS = {
     savedList: [],
@@ -39,7 +40,7 @@ async function init() {
 
   // retrieve the storage data and current windows
   const [{ savedList: savedListStored }, windows] = await Promise.all([
-    browser.storage.sync.get(STORAGE_DEFAULTS),
+    largeSync.get(STORAGE_DEFAULTS),
     browser.windows.getAll({ populate: true }),
   ])
 
@@ -59,7 +60,7 @@ async function init() {
 
   // keep the storage updated with the state
   onSnapshot(state.savedList, savedList => {
-    browser.storage.sync.set({ savedList })
+    largeSync.set({ savedList })
   })
 
   // and keep the state updated with the browser windows

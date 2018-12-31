@@ -30,6 +30,7 @@
     "@material/snackbar": "^0.40.1",
     "@material/typography": "^0.40.1",
     "emoji-regex": "^7.0.3",
+    "lz-string": "^1.4.4",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
     "mobx-state-tree": "^3.9.0",
