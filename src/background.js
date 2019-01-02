@@ -24,10 +24,10 @@ function computeWindowsIdMap(windows, savedList) {
 
 async function init() {
   // const testSavedWindows = []
-  // for (let i = 0; i < 500; i++) {
+  // for (let i = 0; i < 5; i++) {
   //   testSavedWindows.push({
   //     id: Math.random().toString(),
-  //     tabs: Array(500).fill('http://google.com/'),
+  //     tabs: Array(5).fill('http://google.com/'),
   //     name: 'Dog Vomit',
   //     emoji: '🗂',
   //   })
@@ -39,7 +39,7 @@ async function init() {
   }
 
   // retrieve the storage data and current windows
-  const [{ savedList: savedListStored }, windows] = await Promise.all([
+  const [{ savedList: savedListStored = [] }, windows] = await Promise.all([
     largeSync.get(STORAGE_DEFAULTS),
     browser.windows.getAll({ populate: true }),
   ])

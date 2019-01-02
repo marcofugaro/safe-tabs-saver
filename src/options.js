@@ -1,41 +1,85 @@
 import browser from 'webextension-polyfill'
+import pEvent from 'p-event'
+import _ from 'lodash'
+import largeSync from './large-sync'
 
-const OPTIONS_DEFAULTS = {}
+const MESSAGE_TIMEOUT = 5000
 
-function saveOption(e) {
-  const optionNode = e.currentTarget
-  const optionKey = optionNode.name
+function download(filename, content) {
+  const element = document.createElement('a')
+  element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(content)}`)
+  element.setAttribute('download', filename)
 
-  const optionValue = optionNode.type === 'checkbox' ? optionNode.checked : optionNode.value
+  element.style.display = 'none'
+  document.body.appendChild(element)
 
-  browser.storage.sync.set({ [optionKey]: optionValue })
+  element.click()
+
+  document.body.removeChild(element)
 }
 
-async function restoreOptions() {
-  const options = await browser.storage.sync.get(OPTIONS_DEFAULTS)
-
-  Object.keys(options).forEach(option => {
-    const optionNode = document.querySelector(`input[name="${option}"]`)
-
-    switch (optionNode.type) {
-      case 'radio':
-        const targetRadio = document.querySelector(
-          `input[name="${option}"][value="${options[option]}"]`,
-        )
-        if (targetRadio) {
-          targetRadio.checked = true
-        }
-        break
-      case 'checkbox':
-        optionNode.checked = options[option]
-        break
-      default:
-        optionNode.value = options[option]
-    }
-  })
+const STORAGE_DEFAULTS = {
+  savedList: [],
 }
 
-document.addEventListener('DOMContentLoaded', restoreOptions)
+async function exportOptions() {
+  const { savedList = [] } = await largeSync.get(STORAGE_DEFAULTS)
+  download('safe-tabs-saver-data.json', JSON.stringify(savedList, null, 2))
+}
 
-const options = [...document.querySelectorAll('input, select')]
-options.forEach(el => el.addEventListener('change', saveOption))
+async function importOptions(e) {
+  // read the uploaded file
+  const file = e.target.files[0]
+  const reader = new window.FileReader()
+  reader.readAsText(file)
+  await pEvent(reader, 'load')
+  const content = reader.result
+
+  const importSuccess = document.querySelector('#import-success')
+  const importFailure = document.querySelector('#import-failure')
+
+  // make sure they're hidden
+  importSuccess.classList.add('hidden')
+  importFailure.classList.add('hidden')
+  window.clearTimeout(this.hideTimeout)
+
+  try {
+    var savedList = JSON.parse(content)
+  } catch (err) {
+    importFailure.classList.remove('hidden')
+    this.hideTimeout = setTimeout(() => {
+      importFailure.classList.add('hidden')
+    }, MESSAGE_TIMEOUT)
+
+    // empty the input
+    const importInput = document.querySelector('#import')
+    importInput.value = null
+    return
+  }
+
+  // upsert!
+  const { savedList: savedListStored = [] } = await largeSync.get(STORAGE_DEFAULTS)
+  const savedListMerged = _.unionBy(savedList, savedListStored, o => o.id)
+  await largeSync.set({ savedList: savedListMerged })
+
+  // reload the background page to it reads the updated data
+  const background = await browser.extension.getBackgroundPage()
+  background.location.reload()
+
+  importSuccess.classList.remove('hidden')
+  this.hideTimeout = setTimeout(() => {
+    importSuccess.classList.add('hidden')
+  }, MESSAGE_TIMEOUT)
+
+  // empty the input
+  const importInput = document.querySelector('#import')
+  importInput.value = null
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const exportButton = document.querySelector('#export')
+  const importInput = document.querySelector('#import')
+
+  exportButton.addEventListener('click', exportOptions)
+  importInput.addEventListener('change', importOptions)
+})

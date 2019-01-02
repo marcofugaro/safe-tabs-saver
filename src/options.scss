@@ -1,0 +1,46 @@
+@import 'modern-normalize';
+@import '@material/button/mdc-button';
+@import '@material/typography/mdc-typography';
+
+body {
+  // fix the width so the settings popup window
+  // doesn't resize by itself
+  width: 400px;
+  padding: 16px;
+}
+label {
+  display: flex;
+  align-items: center;
+
+  .mdc-button {
+    flex-shrink: 0;
+  }
+
+  [id*='import'] {
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+
+    .material-icons {
+      margin-right: 4px;
+    }
+  }
+}
+
+.visibly-hidden {
+  visibility: hidden;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.red {
+  color: #dd2c00;
+}
+.green {
+  color: #4caf50;
+}

@@ -5,7 +5,38 @@
     <title>Options</title>
     <link rel="stylesheet" href="options.css" />
     <script src="options.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
   </head>
 
-  <body></body>
+  <body class="mdc-typography">
+    <div id="export" class="mdc-button">
+      <i class="material-icons mdc-button__icon" aria-hidden="true">call_made</i> Export data
+    </div>
+
+    <br />
+    <br />
+
+    <label>
+      <div class="mdc-button">
+        <i class="material-icons mdc-button__icon" aria-hidden="true">call_received</i> Import data
+      </div>
+      <div id="import-success" class="mdc-typography--body2 hidden">
+        <i class="material-icons mdc-button__icon green" aria-hidden="true">check</i> Data imported
+        correctly
+      </div>
+      <div id="import-failure" class="mdc-typography--body2 hidden">
+        <i class="material-icons mdc-button__icon red" aria-hidden="true">close</i> Failed to parse
+        file
+      </div>
+      <input type="file" class="visibly-hidden" id="import" accept="application/json" />
+    </label>
+
+    <br />
+
+    <div class="mdc-typography--caption">
+      <strong>Note</strong>: Importing Data will not discard all of the existing data, only saved
+      windows that have the same id of the ones imported will be replaced.
+    </div>
+  </body>
 </html>
