@@ -3,7 +3,7 @@ import { onSnapshot, applySnapshot } from 'mobx-state-tree'
 import { reaction } from 'mobx'
 import _ from 'lodash'
 import BackgroundState from './state/BackgroundState'
-import largeSync from './large-sync'
+import largeSync from './lib/large-sync'
 
 // try to match the existing tabs to the stored ones
 function computeWindowsIdMap(windows, savedList) {

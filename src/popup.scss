@@ -17,14 +17,28 @@ body {
   display: flex;
   justify-content: flex-end;
   padding: 8px;
+}
 
-  h1 {
-    flex-grow: 1;
+.in-sync {
+  display: flex;
+  align-items: center;
+  padding: 2px 16px;
+  color: #c0c0c0;
+
+  .material-icons {
+    margin-right: 6px;
   }
+}
+
+.tip-message {
+  padding: 8px 15%;
+  text-align: center;
+  line-height: 1rem;
 }
 
 // the row container
 .mdc-list {
+  margin-top: 8px;
   padding: 0;
 }
 
@@ -184,6 +198,14 @@ body {
   padding: 0;
   outline: none;
 }
+
+.red {
+  color: #dd2c00;
+}
+.green {
+  color: #4caf50;
+}
+
 .hover-red:hover,
 .hover-red:focus {
   color: #dd2c00;

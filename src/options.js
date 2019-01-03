@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill'
 import pEvent from 'p-event'
 import _ from 'lodash'
-import largeSync from './large-sync'
+import largeSync from './lib/large-sync'
 
 const MESSAGE_TIMEOUT = 5000
 
@@ -45,6 +45,10 @@ async function importOptions(e) {
 
   try {
     var savedList = JSON.parse(content)
+
+    if (!Array.isArray(savedList)) {
+      throw new Error()
+    }
   } catch (err) {
     importFailure.classList.remove('hidden')
     this.hideTimeout = setTimeout(() => {

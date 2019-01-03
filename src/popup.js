@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import _ from 'lodash'
 import { Provider as MobxProvider } from 'mobx-react'
 import { applySnapshot, onSnapshot } from 'mobx-state-tree'
-import WindowsList from './popup/WindowsList'
+import WindowsList from './components/WindowsList'
 import PopupState from './state/PopupState'
 
 async function init() {
@@ -42,14 +42,14 @@ async function init() {
     onSnapshot(state.savedList, newSavedList => {
       port.postMessage({ savedList: newSavedList })
     })
-  })
 
-  ReactDOM.render(
-    <MobxProvider state={state}>
-      <WindowsList />
-    </MobxProvider>,
-    document.getElementById('root'),
-  )
+    ReactDOM.render(
+      <MobxProvider state={state}>
+        <WindowsList />
+      </MobxProvider>,
+      document.getElementById('root'),
+    )
+  })
 }
 
 init()
