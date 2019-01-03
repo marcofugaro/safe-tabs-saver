@@ -9,8 +9,9 @@ import gulpif from 'gulp-if'
 import named from 'vinyl-named'
 import notify from 'gulp-notify'
 
+
 const webpackConfig = {
-  mode: global.IS_PRODUCTION ? 'production' : 'development',
+  mode: process.env.NODE_ENV,
   devtool: 'source-map',
   output: {
     filename: '[name].js',
@@ -22,27 +23,37 @@ const webpackConfig = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
         },
       },
     ],
   },
-  plugins: [new Dotenv()],
+  // use automatically in your code process.env.NODE_ENV
+  // and all of the other env variables
+  plugins: [
+    new Dotenv({ systemvars: true }),
+  ],
+  // import files without doing the ../../../
   resolve: {
     modules: ['node_modules', 'src'],
+  },
+  // only log errors to console,
+  // gulp handles the rest
+  stats: 'errors-only',
+  // disable webpack's default behavior, which is
+  // targeted to web applications development
+  performance: false,
+  optimization: {
+    splitChunks: false,
   },
 }
 
 export function scripts() {
-  return gulp
-    .src(paths.scripts, { allowEmpty: true })
-    .pipe(gulpif(!global.IS_PRODUCTION, addSrc('utils/autoreload.js')))
+  return gulp.src(paths.scripts, { allowEmpty: true })
+    .pipe(gulpif(process.env.NODE_ENV === 'development', addSrc('utils/autoreload.js')))
     .pipe(named())
     .pipe(webpackStream(webpackConfig, webpack))
-    .on(
-      'error',
-      notify.onError({
-        title: 'Error compiling scripts!',
-      }),
-    )
     .pipe(gulp.dest('build'))
 }

@@ -3,7 +3,7 @@ import { paths } from '../gulpfile'
 import { scripts, styles, markup, images, manifest } from '.'
 import io from 'socket.io'
 
-
+// TODO add bundle instruction to console
 export function watch() {
   const socket = io.listen(process.env.WEBSOCKET_PORT)
   const triggerFileChange = (done) => {

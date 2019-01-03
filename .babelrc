@@ -1,9 +1,6 @@
 {
   "presets": [
     ["@babel/preset-env", {
-      "targets": {
-        "browsers": ["last 1 Chrome version"]
-      },
       "useBuiltIns": "usage",
       "modules": false
     }],

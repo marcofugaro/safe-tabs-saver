@@ -4,7 +4,7 @@ import del from 'del'
 import zip from 'gulp-zip'
 import pkg from '../package.json'
 
-
+// TODO add bundle instruction to console
 function zipFiles() {
   return gulp.src('build/**/*')
     .pipe(zip(`${pkg.name}.zip`))

@@ -3,7 +3,6 @@ import { clean, scripts, styles, markup, images, manifest, watch, bundle } from 
 import dotenv from 'dotenv'
 dotenv.config()
 
-global.IS_PRODUCTION = !process.argv.includes('dev')
 
 export const paths = {
   scripts: [

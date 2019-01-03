@@ -11,9 +11,9 @@
   },
   "scripts": {
     "postinstall": "check-node-version --package",
-    "start": "gulp dev --require @std/esm",
-    "build": "gulp build --require @std/esm",
-    "bundle": "gulp bundle --require @std/esm",
+    "start": "NODE_ENV=development gulp dev --require @std/esm",
+    "build": "NODE_ENV=production gulp build --require @std/esm",
+    "bundle": "NODE_ENV=production gulp bundle --require @std/esm",
     "pretest": "npm run build",
     "test": "ava"
   },

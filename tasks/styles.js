@@ -9,7 +9,7 @@ import notify from 'gulp-notify'
 
 
 export function styles() {
-  return gulp.src(paths.styles, { allowEmpty: true, sourcemaps: !global.IS_PRODUCTION })
+  return gulp.src(paths.styles, { allowEmpty: true, sourcemaps: true })
     .pipe(
       sass({
         // compile to expanded css because
@@ -36,5 +36,5 @@ export function styles() {
     .on('error', notify.onError({
       title: 'Error compiling postcss!',
     }))
-    .pipe(gulp.dest('build'))
+    .pipe(gulp.dest('build', { sourcemaps: '.' }))
 }
