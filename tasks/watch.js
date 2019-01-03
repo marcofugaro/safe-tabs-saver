@@ -1,6 +1,6 @@
 import gulp from 'gulp'
 import { paths } from '../gulpfile'
-import { scripts, lintScripts, styles, markup, images, manifest } from '.'
+import { scripts, styles, markup, images, manifest } from '.'
 import io from 'socket.io'
 
 
@@ -11,7 +11,7 @@ export function watch() {
     done()
   }
 
-  gulp.watch('src/**/*.js', gulp.parallel(gulp.series(scripts, triggerFileChange), lintScripts))
+  gulp.watch('src/**/*.js', gulp.series(scripts, triggerFileChange))
   gulp.watch('src/**/*.scss', gulp.series(styles, triggerFileChange))
   gulp.watch(paths.manifest, gulp.series(manifest, triggerFileChange))
   gulp.watch(paths.images, gulp.series(images, triggerFileChange))

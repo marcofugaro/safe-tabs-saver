@@ -18,6 +18,10 @@
     "test": "ava"
   },
   "@std/esm": "all",
+  "browserslist": [
+    "last 1 Chrome version",
+    "last 1 Firefox version"
+  ],
   "engines": {
     "node": ">=8.6"
   },
@@ -33,7 +37,7 @@
     "lz-string": "^1.4.4",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",
-    "mobx-state-tree": "^3.9.0",
+    "mobx-state-tree": "^3.10.0",
     "modern-normalize": "^0.5.0",
     "p-event": "^2.1.0",
     "react": "^16.7.0",
@@ -56,26 +60,26 @@
     "check-node-version": "^3.1.1",
     "del": "^3.0.0",
     "dotenv": "^6.2.0",
-    "dotenv-webpack": "^1.5.7",
+    "dotenv-webpack": "^1.6.0",
     "eslint-config-accurapp": "^4.1.6",
     "eslint-formatter-pretty": "^2.0.0",
     "eslint-plugin-babel": "^5.3.0",
     "gulp": "^4.0.0",
     "gulp-add-src": "^1.0.0",
-    "gulp-changed": "^3.1.1",
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
-    "gulp-json-editor": "^2.4.4",
+    "gulp-json-editor": "^2.5.0",
     "gulp-notify": "^3.0.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.4",
     "gulp-zip": "^4.2.0",
+    "postcss-preset-env": "^6.5.0",
     "puppeteer": "^1.11.0",
     "sass-module-importer": "^1.4.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.28.2",
+    "webpack": "^4.28.3",
     "webpack-stream": "^5.2.1"
   }
 }

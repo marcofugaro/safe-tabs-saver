@@ -1,5 +1,5 @@
 import gulp from 'gulp'
-import { clean, scripts, lintScripts, styles, markup, images, manifest, watch, bundle } from './tasks'
+import { clean, scripts, styles, markup, images, manifest, watch, bundle } from './tasks'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -29,6 +29,6 @@ export const paths = {
 }
 
 
-gulp.task('build', gulp.series(clean, gulp.parallel(scripts, lintScripts, styles, markup, images, manifest)))
+gulp.task('build', gulp.series(clean, gulp.parallel(scripts, styles, markup, images, manifest)))
 gulp.task('dev', gulp.series('build', watch))
 gulp.task('bundle', gulp.series('build', bundle))
