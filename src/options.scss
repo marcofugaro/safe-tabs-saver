@@ -8,6 +8,7 @@ body {
   width: 400px;
   padding: 16px;
 }
+
 label {
   display: flex;
   align-items: center;
@@ -17,9 +18,9 @@ label {
   }
 
   [id*='import'] {
-    margin-left: 16px;
     display: flex;
     align-items: center;
+    margin-left: 16px;
 
     .material-icons {
       margin-right: 4px;
@@ -28,10 +29,10 @@ label {
 }
 
 .visibly-hidden {
-  visibility: hidden;
-  overflow: hidden;
   width: 0;
   height: 0;
+  overflow: hidden;
+  visibility: hidden;
 }
 
 .hidden {
@@ -41,6 +42,7 @@ label {
 .red {
   color: #dd2c00;
 }
+
 .green {
   color: #4caf50;
 }
