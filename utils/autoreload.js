@@ -1,13 +1,10 @@
 import io from 'socket.io-client'
 
+// only developing the extension on chrome is supported,
+// if you want to develop an extension on firefox check out
+// https://github.com/mozilla/web-ext
 function reloadExtension() {
-  // TODO replace this with chrome.runtime.reload() when
-  // this bug will be fixed https://bugs.chromium.org/p/chromium/issues/detail?id=733209
-  chrome.tabs.create({ url: 'chrome://extensions/', active: false }, (extensionTab) => {
-    chrome.tabs.reload(extensionTab.id, () => {
-      chrome.tabs.remove(extensionTab.id)
-    })
-  })
+  chrome.runtime.reload()
 }
 
 const socket = io(`http://localhost:${process.env.WEBSOCKET_PORT}`)

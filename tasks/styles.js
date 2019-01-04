@@ -4,7 +4,6 @@ import sass from 'gulp-sass'
 import moduleImporter from 'sass-module-importer'
 import postcss from 'gulp-postcss'
 import postcssPresetEnv from 'postcss-preset-env'
-import colorModFunction  from 'postcss-color-mod-function'
 import notify from 'gulp-notify'
 
 
@@ -27,10 +26,7 @@ export function styles() {
       postcss([
         // autoprefixer for the browserslist in package.json
         // and other futuristic css features
-        postcssPresetEnv({ stage: 0 }),
-        // TODO remove this when this issue will be resolved
-        // https://github.com/csstools/postcss-preset-env/issues/108
-        colorModFunction(),
+        postcssPresetEnv({ stage: -1 }),
       ])
     )
     .on('error', notify.onError({
