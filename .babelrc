@@ -11,7 +11,6 @@
   ],
   "plugins": [
     "babel-plugin-lodash",
-    "babel-plugin-macros",
     "react-html-attrs"
   ]
 }

@@ -8,4 +8,7 @@ function reloadExtension() {
 }
 
 const socket = io(`http://localhost:${process.env.WEBSOCKET_PORT}`)
-socket.on('file changed', reloadExtension)
+socket.on('file changed', cb => {
+  reloadExtension()
+  cb()
+})
